@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+Lib/
+Scripts/
+
+# Mac
+.DS_Store
+
+output/
+
+# ML files
+*.joblib
+
+# Planning output.
+*.planner
+
+# virtual environments
+*.venv/
