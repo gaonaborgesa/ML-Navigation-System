@@ -1,6 +1,48 @@
-# Project 4: Machine Learning
+# Robot Tour Guide with Machine Learning
 
-Solution code for [Robotics 102 Project 4: Machine Learning (Part 3: Robot Tour Guide)](https://robotics102.github.io/projects/a4.html#tour_guide).
+> **Note:** This project was originally completed as part of CSC 386: Autonomous Systems at Berea College. This is a personal copy to showcase my work.
+
+## Overview
+
+Autonomous robot tour guide that uses machine learning for visual recognition and navigation. The robot navigates between waypoints, identifies numbered posters using a custom-trained classifier, and makes routing decisions based on detected labels.
+
+**For detailed technical implementation, challenges, and code samples, see [robotics-final-report.md](robotics-final-report.md).**
+
+## Technical Stack
+
+• **Language:** Python  
+• **Hardware:** MBot robot platform  
+• **Key Technologies:** Scikit-learn, OpenCV, NumPy, Joblib  
+• **Core Systems:** Computer vision, MLPClassifier neural network, SLAM, BFS path planning
+
+## Key Features
+
+• **Machine Learning Classifier** - Custom-trained neural network for handwritten digit recognition  
+• **Autonomous Navigation** - BFS path planning with collision detection and SLAM localization  
+• **Computer Vision Pipeline** - Real-time image capture, preprocessing, and inference  
+• **Adaptive Routing** - Dynamic path selection based on visual marker detection  
+• **Robust Error Handling** - Retry logic for camera failures and navigation issues
+
+## Highlights
+
+✓ Trained and deployed ML model on embedded robotics platform  
+✓ Integrated perception (vision), cognition (ML), and action (navigation) subsystems  
+✓ Solved dependency compatibility issues across development and deployment environments  
+✓ Implemented complete autonomous system with real-time decision-making
+
+## Project Structure
+
+```
+├── robot_tour_guide.py      # Main tour guide program
+├── waypoint_writer.py        # Utility to record waypoints
+├── model.joblib              # Trained ML classifier
+├── waypoints.txt             # Stored waypoint coordinates
+├── requirements.txt          # Python dependencies
+└── utils/
+    ├── camera.py             # Camera interface and image processing
+    ├── robot.py              # Robot navigation utilities
+    └── classifier_test.py    # Classifier testing utility
+```
 
 ## Setup
 
@@ -9,36 +51,43 @@ Install the dependencies using:
 pip install -r requirements.txt
 ```
 
-## Testing
+## Usage
 
-Test the camera to see it take pictures and store in the `output` folder
+### Setting Waypoints
+
+Run the waypoint writer while the robot is localized:
 ```bash
-python ./utils/camera_test.py 
+python waypoint_writer.py
 ```
 
-**Test the classifier**:
-1. Use `camera_test.py` to take a photo of a poster 
-2. Make sure in the `output` folder `08_bordered_frame_0.jpg` actually shows a binary image of the poster
-3. Upload your trained model under the main folder
-4. Edit `PATH_TO_MODEL` in both `robot_tour_guide.py` and `utils/classifier_test.py`
-5. Run `utils/classifier_test.py` and check the printed output
+Drive to each location using the webapp and record waypoints with appropriate labels.
+
+### Running the Tour
+
+Execute the main tour guide program:
 ```bash
-python ./utils/classifier_test.py
+python robot_tour_guide.py
 ```
-You should able to see `"Detect {some number}"` in the terminal.
 
-## Setting the Waypoints and Labels
+The robot will autonomously navigate between waypoints, detect poster labels, and follow the configured tour path.
 
-Run the `waypoint_writer.py` script while localized to store the waypoints and labels for your current map in waypoints.txt. They will be automatically loaded in `robot_tour_guide.py`. Drive using the webapp and respond to the prompts from the script. Take photos from your current position to check if the nearest poster is visible. Record these waypoints with appropriate labels.
+### Testing Components
 
+Test the camera system:
 ```bash
-python ./waypoint_writer.py
+python utils/camera_test.py
 ```
 
-Alternatively, you can hard code your waypoints and labels directly.
-
-## Running the Program
-
-```bash 
-python ./robot_tour_guide.py
+Test the classifier:
+```bash
+python utils/classifier_test.py
 ```
+
+## Documentation
+
+• **Technical Report:** [robotics-final-report.md](robotics-final-report.md) - Detailed implementation, code samples, and challenges  
+• **Project Specifications:** [Michigan Robotics: Project 4](https://robotics102.github.io/projects/a4.html#tour_guide)
+
+## Acknowledgments
+
+Project completed as part of CSC 386: Autonomous Systems coursework at Berea College.
